@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  minecraft:
+    build: .
+    ports:
+      - "25565:25565"
+    environment:
+      - MEMORY_SIZE=4G
+      - TZ=Asia/Seoul
+    volumes:
+      - ./world:/minecraft/world
+      - ./logs:/minecraft/logs
+      - ./config:/minecraft/config
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    container_name: minecraft_server
+    
+    # 리소스 제한 추가
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+        reservations:
+          memory: 4G
